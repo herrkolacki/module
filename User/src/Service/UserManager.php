@@ -169,7 +169,7 @@ class UserManager
     /**
      * decode JWT token
      * @param String $jwt
-     * @return bool|object
+     * @return array
      */
     public function decodeToken(String $jwt)
     {

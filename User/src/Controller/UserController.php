@@ -60,7 +60,7 @@ class UserController extends AbstractActionController
     {
         // Create user form
         $form = new UserForm('create', $this->entityManager);
-        
+
         // Check if user has submitted the form
         if ($this->getRequest()->isPost()) {
             

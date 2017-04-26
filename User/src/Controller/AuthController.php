@@ -61,8 +61,8 @@ class AuthController extends AbstractActionController
         if (strlen($redirectUrl)>2048) {
             throw new \Exception("Too long redirectUrl argument passed");
         }
-        
-        // Check if we do not have users in database at all. If so, create 
+
+        // Check if we do not have users in database at all. If so, create
         // the 'Admin' user.
         $this->userManager->createAdminUserIfNotExists();
         
@@ -97,7 +97,12 @@ class AuthController extends AbstractActionController
                     $user = $this->entityManager->getRepository(User::class)
                                                 ->findOneByEmail($data['email']);
 
-                    $this->userManager->generateToken($user);
+                    if($user->getTokenExpire() <= date('Y-m-d H:i:s')){
+                        $this->userManager->generateToken($user);
+                    }
+                   
+                    $this->userManager->decodeToken($user->getToken());
+
 
                     // Get redirect URL.
                     $redirectUrl = $this->params()->fromPost('redirect_url', '');

@@ -68,13 +68,13 @@ class Menu extends AbstractHelper{
 
         // Render items
         foreach($this->items as $item){
-            if(!isset($item['float']) || $item['float'] == 'left')
+            if(!isset($item['float']) || $item['float'] == 'left'){
                 $result .= $this->renderItem($item);
+            }
         }
 
         $result .= '</ul>';
         $result .= '<ul class="nav navbar-nav navbar-right">';
-
         // Render items
         foreach($this->items as $item){
             if(isset($item['float']) && $item['float'] == 'right')

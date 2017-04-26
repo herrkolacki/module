@@ -155,19 +155,33 @@ class UserManager
             ]
         ];
         // sekret key from configs
-        $secretKey = base64_decode($config->get('jwt')->get('key'));
+        $secretKey =  base64_decode($config->get('jwt')->get('key'));
         $jwt = JWT::encode($data,$secretKey,'HS512');
-
-        $jsonArray = ['jwt' => $jwt];
-        $jsonToString = json_encode($jsonArray);
-
-        $user->setToken($jsonToString);
+        $user->setToken($jwt);
 
         $tokenExpired =  date("Y-m-d H:i:s", $expire) ;
         $user->setTokenExpire($tokenExpired);
         // Apply changes to database.
         $this->entityManager->flush();
-        return $jsonToString;
+        return $jwt;
+    }
+
+    /**
+     * decode JWT token
+     * @param String $jwt
+     * @return bool|object
+     */
+    public function decodeToken(String $jwt)
+    {
+        if(!$jwt) {
+            return false;
+        }
+        $config = Factory::fromFile('config/autoload/local.php', true);
+        //now + 1 month();
+        $secretKey = base64_decode($config->get('jwt')->get('key'));
+        $token = JWT::decode($jwt, $secretKey, ['HS512']);
+        return $token;
+
     }
     
     /**

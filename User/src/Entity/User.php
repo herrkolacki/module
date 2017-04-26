@@ -61,12 +61,10 @@ class User
      */
     protected $tokenExpire;
 
-
     /**
-     * Returns user ID.
-     * @return integer
+     * @return int
      */
-    public function getId() 
+    public function getId() :int
     {
         return $this->id;
     }
@@ -75,7 +73,7 @@ class User
      * Sets user ID. 
      * @param int $id    
      */
-    public function setId($id) 
+    public function setId(int $id)
     {
         $this->id = $id;
     }

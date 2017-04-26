@@ -83,19 +83,17 @@ class NavManager
                 'id' => 'logout',
                 'label' => $this->authService->getIdentity(),
                 'float' => 'right',
-                'dropdown' => [
-                    [
-                        'id' => 'settings',
-                        'label' => 'Settings',
-                        'link' => $url('application', ['action'=>'settings'])
-                    ],
-                    [
+
+                ];
+                $items[] = [
                         'id' => 'logout',
                         'label' => 'Sign out',
-                        'link' => $url('logout')
-                    ],
-                ]
-            ];
+                        'link' => $url('logout'),
+                        'float' => 'right',
+                    ];
+
+
+
         }
 
         return $items;

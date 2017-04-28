@@ -18,6 +18,6 @@ class WriteControllerFactory implements FactoryInterface
         $productManager = $container->get(ProductManager::class);
         $authService = $container->get(\Zend\Authentication\AuthenticationService::class);
         // Instantiate the controller and inject dependencies
-        return new ListController($entityManager, $productManager, $authService);
+        return new WriteController($entityManager, $productManager, $authService);
     }
 }

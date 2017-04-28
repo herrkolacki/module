@@ -67,8 +67,6 @@ class NavManager
             ];
         } else {
 
-
-
             $items[] = [
                 'id' => 'admin',
                 'label' => 'Admin',

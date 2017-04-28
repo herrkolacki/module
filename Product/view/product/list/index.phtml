@@ -9,10 +9,10 @@ $this->mainMenu()->setActiveItemId('product');
 <h1>Manage products</h1>
 
 <p>
-<a class="btn btn-default" href="
-    
-    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New product
-</a>
+    <a class="btn btn-default" href="
+    <?= $this->url('product', ['action'=>'add']); ?>">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New product
+    </a>
 </p>
 
 <table class="table table-striped">

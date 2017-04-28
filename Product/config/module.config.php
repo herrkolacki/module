@@ -28,7 +28,7 @@ return [
                     ],
                     'defaults' => [
                         'controller'    => Controller\WriteController::class,
-                        'action'        => 'view',
+                        'action'        => 'add',
                     ],
                 ],
             ],

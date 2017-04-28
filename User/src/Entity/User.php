@@ -97,7 +97,7 @@ class User
     }
     
     /**
-     * Returns full name.
+     * Returns username.
      * @return string     
      */
     public function getUsername()
@@ -106,7 +106,7 @@ class User
     }       
 
     /**
-     * Sets full name.
+     * Sets username.
      * @param string $username
      */
     public function setUsername($username)

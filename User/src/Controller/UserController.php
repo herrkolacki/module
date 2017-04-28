@@ -3,6 +3,7 @@ namespace User\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Zend\Http\Request;
 use User\Entity\User;
 use User\Form\UserForm;
 use User\Form\PasswordChangeForm;
@@ -60,6 +61,8 @@ class UserController extends AbstractActionController
     {
         // Create user form
         $form = new UserForm('create', $this->entityManager);
+        $request = new Request();
+
 
         // Check if user has submitted the form
         if ($this->getRequest()->isPost()) {
@@ -161,7 +164,7 @@ class UserController extends AbstractActionController
             $form->setData(array(
                     'username'=>$user->getUsername(),
                     'email'=>$user->getEmail(),
-                    'status'=>$user->getStatus(),                    
+
                 ));
         }
         

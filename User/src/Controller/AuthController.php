@@ -54,8 +54,6 @@ class AuthController extends AbstractActionController
      */
     public function loginAction()
     {
-
-
         // Retrieve the redirect URL (if passed). We will redirect the user to this
         // URL after successfull login.
         $redirectUrl = (string)$this->params()->fromQuery('redirectUrl', '');
@@ -103,7 +101,6 @@ class AuthController extends AbstractActionController
                     }
 
                     $this->userManager->decodeToken($user->getToken());
-
 
                     // Get redirect URL.
                     $redirectUrl = $this->params()->fromPost('redirect_url', '');

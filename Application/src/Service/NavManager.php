@@ -40,13 +40,13 @@ class NavManager
         $items[] = [
             'id' => 'home',
             'label' => 'Home',
-            'link'  => 'home'
+            'link'  => $url('home')
         ];
         
         $items[] = [
             'id' => 'about',
             'label' => 'About',
-            'link'  => 'about'
+            'link'  => $url('about')
         ];
 
         $items[] = [

@@ -3,7 +3,7 @@ namespace Product\Controller\Factory;
 
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
-use Product\Controller\ListController;
+use Product\Controller\WriteController;
 use Product\Service\ProductManager;
 
 /**

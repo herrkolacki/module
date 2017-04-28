@@ -5,6 +5,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\Http\Request;
 use Product\Form\ProductForm;
+use Product\Entity\Product;
 
 
 /**
@@ -47,7 +48,7 @@ class WriteController extends AbstractActionController
 
         // Check if user has submitted the form
         if ($this->getRequest()->isPost()) {
-            
+
             // Fill in the form with POST data
             $data = $this->params()->fromPost();            
 
@@ -60,7 +61,7 @@ class WriteController extends AbstractActionController
                 $data = $form->getData();
 
                 // Add product.
-                $product = $this->Manager->addProduct($data);
+                $product = $this->productManager->addProduct($data);
 
                 // Redirect to "view" page
                 return $this->redirect()->toRoute('product',
@@ -83,10 +84,12 @@ class WriteController extends AbstractActionController
             $this->getResponse()->setStatusCode(404);
             return;
         }
-        
+
+
         $product = $this->entityManager->getRepository(Product::class)
                 ->find($id);
-        
+
+
         if ($product == null) {
             $this->getResponse()->setStatusCode(404);
             return;
@@ -94,7 +97,7 @@ class WriteController extends AbstractActionController
         
         // Create user form
         $form = new ProductForm('update', $this->entityManager, $product);
-        
+
         // Check if user has submitted the form
         if ($this->getRequest()->isPost()) {
             

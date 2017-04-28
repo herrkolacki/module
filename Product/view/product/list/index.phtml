@@ -1,55 +1,37 @@
 <?php
 $this->headTitle('Products');
-
 $this->mainMenu()->setActiveItemId('product');
-
-
 ?>
 
 <h1>Manage products</h1>
 
 <p>
     <a class="btn btn-default" href="
-    <?= $this->url('product', ['action'=>'add']); ?>">
+    <?= $this->url('product', ['action' => 'add']); ?>">
         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New product
     </a>
 </p>
 
 <table class="table table-striped">
-
-   <tr>
+    <tr>
         <th>ID</th>
         <th>Name</th>
         <th>Date Created</th>
-                
+        <th>Actions</th>
     </tr>
-    
-    <?php foreach ($products as $product): ?>
-    
-    <tr>
-        <td><?= $this->escapeHtml($product->getId()); ?></td>
-        <td>
-            <a href="<?= $this->url('products', ['action'=>'view', 'id'=>$product->getId()]); ?>">
-                <?= $this->escapeHtml($product->getEmail()); ?>
-            </a> 
-        </td>
-        <td><?= $this->escapeHtml($product->getproductname()); ?></a>
-        </td>
-        <td><?= $this->escapeHtml($product->getCreated()); ?></td>
-        <td><?= $this->escapeHtml($product->getStatusAsString()); ?></td>
-        <td>
-            <a class="btn btn-info" href="<?= $this->url('products', 
-                    ['action'=>'edit', 'id'=>$product->getId()]); ?>">
-                <span class="glyphicon glyphicon-pencil" ></span> Edit
-            </a>
-            <a class="btn btn-default" href="<?= $this->url('products',
-                    ['action'=>'change-password', 'id'=>$product->getId()]); ?>">
-                <span class="glyphicon glyphicon-asterisk"></span> Change Password
-            </a>
-        </td>    
-    </tr>
-        
-    <?php endforeach; ?>   
-    
+    <?php foreach($products as $product): ?>
+        <tr>
+            <td><?= $this->escapeHtml($product->getId()); ?></td>
+            <td><?= $this->escapeHtml($product->getName()); ?></a>
+            </td>
+            <td><?= $this->escapeHtml($product->getCreated()); ?></td>
+            <td>
+                <a class="btn btn-info" href="<?= $this->url('product',
+                    ['action' => 'edit', 'id' => $product->getId()]); ?>">
+                    <span class="glyphicon glyphicon-pencil"></span> Edit
+                </a>
+            </td>
+        </tr>
+    <?php endforeach; ?>
 </table>
 

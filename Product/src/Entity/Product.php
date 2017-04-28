@@ -176,7 +176,7 @@ class Product
      */
     public function setModified($modified)
     {
-        $this->name = $modified;
+        $this->modified = $modified;
     }
 
     /**

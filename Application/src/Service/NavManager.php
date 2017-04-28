@@ -66,7 +66,9 @@ class NavManager
                 'float' => 'right'
             ];
         } else {
-            
+
+
+
             $items[] = [
                 'id' => 'admin',
                 'label' => 'Admin',
@@ -78,7 +80,14 @@ class NavManager
                     ]
                 ]
             ];
-            
+
+            $items[] = [
+                'id' => 'product',
+                'label' => 'Produkty',
+                'link' => $url('products'),
+                'float' => 'right',
+            ];
+
             $items[] = [
                 'id' => 'logout',
                 'label' => $this->authService->getIdentity(),

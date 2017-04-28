@@ -14,7 +14,7 @@ return [
                     'route'    => '/products',
                     'defaults' => [
                         'controller' => Controller\ListController::class,
-                        'action'     => 'login',
+                        'action'     => 'index',
                     ],
                 ],
             ],
@@ -28,7 +28,7 @@ return [
                     ],
                     'defaults' => [
                         'controller'    => Controller\WriteController::class,
-                        'action'        => 'index',
+                        'action'        => 'view',
                     ],
                 ],
             ],

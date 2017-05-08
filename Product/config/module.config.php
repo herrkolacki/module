@@ -66,6 +66,11 @@ return [
             __DIR__ . '/../view',
         ],
     ],
+     /*'view_manager' => [ //rest wypróbowaæ
+        'strategies' => [
+            'ViewJsonStrategy',
+        ],
+    ],*/
     'doctrine' => [
         'driver' => [
             __NAMESPACE__ . '_driver' => [

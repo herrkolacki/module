@@ -5,8 +5,10 @@ namespace Product\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Product\Entity\Product;
+use Zend\Permissions\Acl\Acl;
+use Zend\Permissions\Acl\Role\GenericRole as Role;
+use Zend\Permissions\Acl\Resource\GenericResource as Resource;
 
-//use Product\Form\ProductForm;
 /**
  * This controller is responsible for letting the user to log in and log out.
  */
@@ -48,6 +50,26 @@ class ListController extends AbstractActionController
      */
     public function indexAction()
     {
+        $acl = new Acl();
+
+        $roleGuest = new Role('guest');
+        $acl->addRole($roleGuest);
+        $acl->addRole(new Role('staff'), $roleGuest);
+        $acl->addRole(new Role('editor'), 'staff');
+        $acl->addRole(new Role('administrator'));
+
+
+
+
+       // $acl->addRole(new Role('someUser'), $parents);
+
+        $acl->addResource(new Resource('index'));
+
+        $acl->deny('staff', 'index');
+        $acl->allow('editor', 'index');
+
+        echo $acl->isAllowed('staff', 'index') ? 'allowed' : 'denied';
+
         $products = $this->entityManager->getRepository(Product::class)
                                      ->findBy([], ['id'=>'ASC']);
 

@@ -19,10 +19,15 @@ class Product
     protected $id;
 
     /** 
+     * @ORM\Column(name="user_id")
+     */
+    protected $userId;
+
+    /**
      * @ORM\Column(name="insurer_id")
      */
+
     protected $insurerId;
-    
     /** 
      * @ORM\Column(name="active")
      */
@@ -73,7 +78,7 @@ class Product
 
     /**
      * Gets insured_id.
-     * @param int $email
+     * @param int $insureid
      */
     public function getInsurerId() : int
     {
@@ -87,6 +92,24 @@ class Product
     public function setInsurerId(int $insurerId)
     {
         $this->insurerId = $insurerId;
+    }
+
+    /**
+     * Gets insured_id.
+     * @param int $userId
+     */
+    public function getUserId() : int
+    {
+        return $this->userId;
+    }
+
+    /**
+     * Sets insured_id.
+     * @param int $userId
+     */
+    public function setUserId(int $userId)
+    {
+        $this->insurerId = $userId;
     }
 
     /**

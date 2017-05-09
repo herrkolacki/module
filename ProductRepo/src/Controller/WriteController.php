@@ -1,12 +1,11 @@
 <?php
-namespace Product\Controller;
+namespace ProductRepo\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\Http\Request;
-use Product\Form\ProductForm;
-use Product\Entity\Product;
-use Zend\View\Model\JsonModel;
+use ProductRepo\Form\ProductRepoForm;
+use ProductRepo\Entity\ProductRepo;
 
 
 /**
@@ -23,19 +22,19 @@ class WriteController extends AbstractActionController
     
     /**
      * User manager.
-     * @var User\Service\ProductManager
+     * @var User\Service\ProductRepoManager
      */
-    private $productManager;
+    private $ProductRepoManager;
     
     private $authService;
     /**
      * Constructor. 
      */
-    public function __construct($entityManager, $productManager, $authService)
+    public function __construct($entityManager, $ProductRepoManager, $authService)
     {
         $this->authService = $authService;
         $this->entityManager = $entityManager;
-        $this->productManager = $productManager;
+        $this->ProductRepoManager = $ProductRepoManager;
     }
     
     /**
@@ -44,7 +43,7 @@ class WriteController extends AbstractActionController
     public function addAction()
     {
         // Create user form
-        $form = new ProductForm('create', $this->entityManager);
+        $form = new ProductRepoForm('create', $this->entityManager);
         $request = new Request();
 
         // Check if user has submitted the form
@@ -61,12 +60,12 @@ class WriteController extends AbstractActionController
                 // Get filtered and validated data
                 $data = $form->getData();
 
-                // Add product.
-                $product = $this->productManager->addProduct($data);
+                // Add ProductRepo.
+                $ProductRepo = $this->ProductRepoManager->addProductRepo($data);
 
                 // Redirect to "view" page
-                return $this->redirect()->toRoute('product',
-                        ['action'=>'view', 'id'=>$product->getId()]);
+                return $this->redirect()->toRoute('ProductRepo',
+                        ['action'=>'view', 'id'=>$ProductRepo->getId()]);
             }               
         } 
         
@@ -87,17 +86,17 @@ class WriteController extends AbstractActionController
         }
 
 
-        $product = $this->entityManager->getRepository(Product::class)
+        $ProductRepo = $this->entityManager->getRepository(ProductRepo::class)
                 ->find($id);
 
 
-        if ($product == null) {
+        if ($ProductRepo == null) {
             $this->getResponse()->setStatusCode(404);
             return;
         }
         
         // Create user form
-        $form = new ProductForm('update', $this->entityManager, $product);
+        $form = new ProductRepoForm('update', $this->entityManager, $ProductRepo);
 
         // Check if user has submitted the form
         if ($this->getRequest()->isPost()) {
@@ -113,57 +112,50 @@ class WriteController extends AbstractActionController
                 // Get filtered and validated data
                 $data = $form->getData();
 
-                // Update the product
-                $this->productManager->updateProduct($product, $data);
+                // Update the ProductRepo
+                $this->ProductRepoManager->updateProductRepo($ProductRepo, $data);
                 
                 // Redirect to "view" page
-                return $this->redirect()->toRoute('product',
-                        ['action'=>'view', 'id'=>$product->getId()]);
+                return $this->redirect()->toRoute('ProductRepo',
+                        ['action'=>'view', 'id'=>$ProductRepo->getId()]);
             }               
         } else {
             $form->setData(array(
-                    'name'=>$product->getName(),
+                    'name'=>$ProductRepo->getName(),
              ));
         }
         
         return new ViewModel(array(
-            'product' => $product,
+            'ProductRepo' => $ProductRepo,
             'form' => $form
         ));
     }
+
     /**
-     * The "view" action displays a page allowing to view product's details.
+     * The "view" action displays a page allowing to view ProductRepo's details.
      */
     public function viewAction()
     {
         $id = (int)$this->params()->fromRoute('id', -1);
-
         if ($id<1) {
             $this->getResponse()->setStatusCode(404);
             return;
         }
 
         // Find a user with such ID.
-        $product = $this->entityManager->getRepository(Product::class)
-                                       ->find($id);
+        $ProductRepo = $this->entityManager->getRepository(ProductRepo::class)
+                                           ->find($id);
 
-        if ($product == null) {
+        if ($ProductRepo == null) {
             $this->getResponse()->setStatusCode(404);
             return;
         }
-        $data = ['id' =>$product-> getId(), 'name' => $product->getName()];
-        $productJson = new JsonModel($data);
-        var_dump($productJson);
 
-        $jsonEncode = json_encode($data);
-        var_dump($jsonEncode);
-        die();
-        return $productJson;
-
-        //return new ViewModel([
-        //    'product' => $product
-        //]);
+        return new ViewModel([
+            'ProductRepo' => $ProductRepo
+        ]);
     }
+    
 }
 
 

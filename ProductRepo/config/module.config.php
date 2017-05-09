@@ -1,5 +1,5 @@
 <?php
-namespace Product;
+namespace ProductRepo;
 
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
@@ -8,20 +8,20 @@ use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 return [
     'router' => [
         'routes' => [
-            'products' => [
+            'ProductRepos' => [
                 'type' => Literal::class,
                 'options' => [
-                    'route'    => '/products',
+                    'route'    => '/ProductRepos',
                     'defaults' => [
                         'controller' => Controller\ListController::class,
                         'action'     => 'index',
                     ],
                 ],
             ],
-             'product' => [
+             'ProductRepo' => [
                 'type'    => Segment::class,
                 'options' => [
-                    'route'    => '/product[/:action[/:id]]',
+                    'route'    => '/ProductRepo[/:action[/:id]]',
                     'constraints' => [
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'id' => '[a-zA-Z0-9_-]*',
@@ -57,7 +57,7 @@ return [
     ],
      'service_manager' => [
        'factories' => [
-               Service\ProductManager::class => Service\Factory\ProductManagerFactory::class,
+               Service\ProductRepoManager::class => Service\Factory\ProductRepoManagerFactory::class,
 
         ],
     ],
@@ -65,11 +65,12 @@ return [
         'template_path_stack' => [
             __DIR__ . '/../view',
         ],
-          'strategies' => [
+    ],
+     /*'view_manager' => [ //rest wypróbowaæ
+        'strategies' => [
             'ViewJsonStrategy',
         ],
-    ],
-
+    ],*/
     'doctrine' => [
         'driver' => [
             __NAMESPACE__ . '_driver' => [

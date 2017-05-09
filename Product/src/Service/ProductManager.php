@@ -58,16 +58,17 @@ class ProductManager
         // Do not allow to change user email if another user with such email already exits.
 
 
+
         $currentDate = date('Y-m-d H:i:s');
         // Create new Project entity.
-        $product = new Product();
+        $product->setName($data['name']);
         $product->setInsurerId($data['insurer_id']);
         $product->setActive($data['active']);
         $product->setDescription($data['description']);
         $product->setAccessCode($data['access_code']);
         $product->setModified($currentDate);
 
-        
+        $this->entityManager->persist($product);
         // Apply changes to database.
         $this->entityManager->flush();
 

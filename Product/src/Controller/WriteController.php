@@ -86,7 +86,7 @@ class WriteController extends AbstractActionController
             return;
         }
 
-
+        var_dump($id);
         $product = $this->entityManager->getRepository(Product::class)
                 ->find($id);
 
@@ -97,6 +97,7 @@ class WriteController extends AbstractActionController
         }
         
         // Create user form
+
         $form = new ProductForm('update', $this->entityManager, $product);
 
         // Check if user has submitted the form
@@ -112,7 +113,8 @@ class WriteController extends AbstractActionController
                 
                 // Get filtered and validated data
                 $data = $form->getData();
-
+                //var_dump($product);
+                //var_dump($data); die();
                 // Update the product
                 $this->productManager->updateProduct($product, $data);
                 

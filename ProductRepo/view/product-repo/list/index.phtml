@@ -1,13 +1,15 @@
 <?php
-$this->headTitle('productRepos');
-$this->mainMenu()->setActiveItemId('productRepo');
+
+//$this->headTitle('productRepos');
+
+//$this->mainMenu()->setActiveItemId('productRepo');
 ?>
 
 <h1>Manage productRepos</h1>
 
 <p>
     <a class="btn btn-default" href="
-    <?= $this->url('productRepo', ['action' => 'add']); ?>">
+    <?= $this->url('repo', ['action' => 'add']); ?>">
         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New productRepo
     </a>
 </p>
@@ -26,7 +28,7 @@ $this->mainMenu()->setActiveItemId('productRepo');
             </td>
             <td><?= $this->escapeHtml($productRepo->getCreated()); ?></td>
             <td>
-                <a class="btn btn-info" href="<?= $this->url('productRepo',
+                <a class="btn btn-info" href="<?= $this->url('repo',
                     ['action' => 'edit', 'id' => $productRepo->getId()]); ?>">
                     <span class="glyphicon glyphicon-pencil"></span> Edit
                 </a>

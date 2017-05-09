@@ -8,20 +8,20 @@ use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 return [
     'router' => [
         'routes' => [
-            'productRepos' => [
+            'repos' => [
                 'type' => Literal::class,
                 'options' => [
-                    'route'    => '/productRepos',
+                    'route'    => '/repos',
                     'defaults' => [
                         'controller' => Controller\ListController::class,
                         'action'     => 'index',
                     ],
                 ],
             ],
-             'productRepo' => [
+             'repo' => [
                 'type'    => Segment::class,
                 'options' => [
-                    'route'    => '/productRepo[/:action[/:id]]',
+                    'route'    => '/repo[/:action[/:id]]',
                     'constraints' => [
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'id' => '[a-zA-Z0-9_-]*',

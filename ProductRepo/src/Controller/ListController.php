@@ -4,7 +4,7 @@ namespace ProductRepo\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use ProductRepo\Entity\productRepo;
+use ProductRepo\Entity\ProductRepo;
 
 /**
  * This controller is responsible for letting the user to log in and log out.
@@ -49,6 +49,9 @@ class ListController extends AbstractActionController
     {
         $productRepos = $this->entityManager->getRepository(ProductRepo::class)
                                      ->findBy([], ['id'=>'ASC']);
+
+
+
 
         return new ViewModel([
             'productRepos' => $productRepos

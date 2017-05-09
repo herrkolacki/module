@@ -152,10 +152,10 @@ class WriteController extends AbstractActionController
             return;
         }
         $data = ['id' =>$product-> getId(), 'name' => $product->getName()];
-        $productJson = new JsonModel($data);
+        $productJson = new JsonModel($data); // tak mo¿na przekazywac jako obiekt
         var_dump($productJson);
 
-        $jsonEncode = json_encode($data);
+        $jsonEncode = json_encode($data); // tak mo¿na przekazywaæ jako tablicê
         var_dump($jsonEncode);
         die();
         return $productJson;

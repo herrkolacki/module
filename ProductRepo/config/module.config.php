@@ -8,20 +8,20 @@ use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 return [
     'router' => [
         'routes' => [
-            'ProductRepos' => [
+            'productRepos' => [
                 'type' => Literal::class,
                 'options' => [
-                    'route'    => '/ProductRepos',
+                    'route'    => '/productRepos',
                     'defaults' => [
                         'controller' => Controller\ListController::class,
                         'action'     => 'index',
                     ],
                 ],
             ],
-             'ProductRepo' => [
+             'productRepo' => [
                 'type'    => Segment::class,
                 'options' => [
-                    'route'    => '/ProductRepo[/:action[/:id]]',
+                    'route'    => '/productRepo[/:action[/:id]]',
                     'constraints' => [
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'id' => '[a-zA-Z0-9_-]*',
@@ -65,12 +65,10 @@ return [
         'template_path_stack' => [
             __DIR__ . '/../view',
         ],
-    ],
-     /*'view_manager' => [ //rest wypróbowaæ
-        'strategies' => [
+           'strategies' => [
             'ViewJsonStrategy',
         ],
-    ],*/
+    ],
     'doctrine' => [
         'driver' => [
             __NAMESPACE__ . '_driver' => [

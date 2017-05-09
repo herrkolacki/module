@@ -15,9 +15,9 @@ class WriteControllerFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $entityManager = $container->get('doctrine.entitymanager.orm_default');
-        $ProductRepoManager = $container->get(ProductRepoManager::class);
+        $productRepoManager = $container->get(ProductRepoManager::class);
         $authService = $container->get(\Zend\Authentication\AuthenticationService::class);
         // Instantiate the controller and inject dependencies
-        return new WriteController($entityManager, $ProductRepoManager, $authService);
+        return new WriteController($entityManager, $productRepoManager, $authService);
     }
 }

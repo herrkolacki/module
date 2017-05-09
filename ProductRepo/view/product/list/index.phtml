@@ -1,14 +1,14 @@
 <?php
-$this->headTitle('ProductRepos');
-$this->mainMenu()->setActiveItemId('ProductRepo');
+$this->headTitle('productRepos');
+$this->mainMenu()->setActiveItemId('productRepo');
 ?>
 
-<h1>Manage ProductRepos</h1>
+<h1>Manage productRepos</h1>
 
 <p>
     <a class="btn btn-default" href="
-    <?= $this->url('ProductRepo', ['action' => 'add']); ?>">
-        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New ProductRepo
+    <?= $this->url('productRepo', ['action' => 'add']); ?>">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New productRepo
     </a>
 </p>
 
@@ -19,15 +19,15 @@ $this->mainMenu()->setActiveItemId('ProductRepo');
         <th>Date Created</th>
         <th>Actions</th>
     </tr>
-    <?php foreach($ProductRepos as $ProductRepo): ?>
+    <?php foreach($productRepos as $productRepo): ?>
         <tr>
-            <td><?= $this->escapeHtml($ProductRepo->getId()); ?></td>
-            <td><?= $this->escapeHtml($ProductRepo->getName()); ?></a>
+            <td><?= $this->escapeHtml($productRepo->getId()); ?></td>
+            <td><?= $this->escapeHtml($productRepo->getName()); ?></a>
             </td>
-            <td><?= $this->escapeHtml($ProductRepo->getCreated()); ?></td>
+            <td><?= $this->escapeHtml($productRepo->getCreated()); ?></td>
             <td>
-                <a class="btn btn-info" href="<?= $this->url('ProductRepo',
-                    ['action' => 'edit', 'id' => $ProductRepo->getId()]); ?>">
+                <a class="btn btn-info" href="<?= $this->url('productRepo',
+                    ['action' => 'edit', 'id' => $productRepo->getId()]); ?>">
                     <span class="glyphicon glyphicon-pencil"></span> Edit
                 </a>
             </td>

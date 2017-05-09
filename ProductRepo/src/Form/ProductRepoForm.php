@@ -2,10 +2,6 @@
 namespace ProductRepo\Form;
 
 use Zend\Form\Form;
-use Zend\Form\Fieldset;
-use Zend\InputFilter\InputFilter;
-
-
 
 /**
  * This form is used to collect user's email, full name, password and status. The form
@@ -30,15 +26,15 @@ class ProductRepoForm extends Form
      * Current user.
      * @var User\Entity\User
      */
-    private $ProductRepo = null;
+    private $productRepo = null;
 
     /**
      * Constructor.
      */
-    public function __construct($scenario = 'create', $entityManager = null, $ProductRepo = null)
+    public function __construct($scenario = 'create', $entityManager = null, $productRepo = null)
     {
         // Define form name
-        parent::__construct('ProductRepo-form');
+        parent::__construct('productRepo-form');
 
         // Set POST method for this form
         $this->setAttribute('method', 'post');
@@ -46,7 +42,7 @@ class ProductRepoForm extends Form
         // Save parameters for internal use.
         $this->scenario = $scenario;
         $this->entityManager = $entityManager;
-        $this->ProductRepo = $ProductRepo;
+        $this->productRepo = $productRepo;
 
         $this->addElements();
 

@@ -163,7 +163,7 @@ class Product
      */
     public function setDescription($description)
     {
-        $this->name = $description;
+        $this->description = $description;
     }
 
     /**
@@ -176,7 +176,7 @@ class Product
     }
 
     /**
-     * Sets the date when this user was created.
+     * Sets the date when this project was created.
      * @param string $created
      */
     public function setCreated($created)
@@ -208,7 +208,7 @@ class Product
      */
     public function getAccessCode()
     {
-        return $this->modified;
+        return $this->accessCode;
     }
 
     /**
@@ -217,7 +217,7 @@ class Product
      */
     public function setAccessCode($accessCode)
     {
-        $this->name = $accessCode;
+        $this->accessCode = $accessCode;
     }
 }
 

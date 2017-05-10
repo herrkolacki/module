@@ -240,9 +240,9 @@ class User
      * Sets password reset token's creation date.
      * @param string $date
      */
-    public function setTokenExpire($date)
+    public function setTokenExpire($tokenExpire)
     {
-        $this->tokenExpire = $date;
+        $this->tokenExpire = $tokenExpire;
     }
 }
 

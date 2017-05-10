@@ -37,6 +37,8 @@ class UserController extends AbstractActionController
         $this->authService = $authService;
         $this->entityManager = $entityManager;
         $this->userManager = $userManager;
+
+
     }
     
     /**

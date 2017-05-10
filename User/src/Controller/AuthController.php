@@ -68,13 +68,13 @@ class AuthController extends AbstractActionController
         // Create login form
         $form = new LoginForm(); 
         $form->get('redirect_url')->setValue($redirectUrl);
-        
+
         // Store login status.
         $isLoginError = false;
         
         // Check if user has submitted the form
         if ($this->getRequest()->isPost()) {
-            
+
             // Fill in the form with POST data
             $data = $this->params()->fromPost();            
 
@@ -87,14 +87,14 @@ class AuthController extends AbstractActionController
                 $data = $form->getData();
 
                 // Perform login attempt.
-                $result = $this->authManager->login($data['email'], 
+                $result = $this->authManager->login($data['username'],
                         $data['password'], $data['remember_me']);
 
                 // Check result.
                 if ($result->getCode() == Result::SUCCESS) {
                     /** potrzebne dane usera zeby zrobic tokena */
                     $user = $this->entityManager->getRepository(User::class)
-                                                ->findOneByEmail($data['email']);
+                                                ->findOneByUsername($data['username']);
 
                     if($user->getTokenExpire() <= date('Y-m-d H:i:s')){
                         $this->userManager->generateToken($user);

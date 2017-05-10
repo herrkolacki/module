@@ -30,12 +30,12 @@ class LoginForm extends Form
      */
     protected function addElements() 
     {
-        // Add "email" field
+        // Add "username" field
         $this->add([            
             'type'  => 'text',
-            'name' => 'email',
+            'name' => 'username',
             'options' => [
-                'label' => 'Your E-mail',
+                'label' => 'Your username',
             ],
         ]);
         
@@ -95,7 +95,7 @@ class LoginForm extends Form
         $this->setInputFilter($inputFilter);
                 
         // Add input for "email" field
-        $inputFilter->add([
+        /*$inputFilter->add([
                 'name'     => 'email',
                 'required' => true,
                 'filters'  => [
@@ -110,8 +110,23 @@ class LoginForm extends Form
                         ],
                     ],
                 ],
-            ]);     
-        
+            ]);*/
+        $inputFilter->add([
+            'name'     => 'username',
+            'required' => true,
+            'filters'  => [
+            ],
+            'validators' => [
+                [
+                    'name'    => 'StringLength',
+                    'options' => [
+                        'min' => 4,
+                        'max' => 64
+                    ],
+                ],
+            ],
+        ]);
+
         // Add input for "password" field
         $inputFilter->add([
                 'name'     => 'password',

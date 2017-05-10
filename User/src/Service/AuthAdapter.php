@@ -15,6 +15,8 @@ use User\Entity\User;
  */
 class AuthAdapter implements AdapterInterface
 {
+
+    private $username;
     /**
      * User email.
      * @var string 
@@ -41,6 +43,11 @@ class AuthAdapter implements AdapterInterface
         $this->entityManager = $entityManager;
     }
     
+    public function setUsername($username)
+    {
+        $this->username = $username;
+    }
+
     /**
      * Sets user email.     
      */
@@ -64,7 +71,7 @@ class AuthAdapter implements AdapterInterface
     {                
         // Check the database if there is a user with such email.
         $user = $this->entityManager->getRepository(User::class)
-                ->findOneByEmail($this->email);
+                ->findOneByUsername($this->username);
 
         // If there is no such user, return 'Identity Not Found' status.
         if ($user == null) {
@@ -96,7 +103,7 @@ class AuthAdapter implements AdapterInterface
             // saved in session for later use.
             return new Result(
                     Result::SUCCESS, 
-                    $this->email, 
+                    $this->username,
                     ['Authenticated successfully.']);        
         }             
         

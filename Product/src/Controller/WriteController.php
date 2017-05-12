@@ -6,7 +6,10 @@ use Zend\View\Model\ViewModel;
 use Zend\Http\Request;
 use Product\Form\ProductForm;
 use Product\Entity\Product;
+use User\Entity\User;
 use Zend\View\Model\JsonModel;
+use Doctrine\ORM\Query\Expr;
+use Doctrine\DBAL\Query\QueryBuilder;
 
 
 /**
@@ -86,9 +89,23 @@ class WriteController extends AbstractActionController
             return;
         }
 
-        var_dump($id);
+
         $product = $this->entityManager->getRepository(Product::class)
                 ->find($id);
+
+        $user = $this->entityManager->getRepository(User::class)
+                                       ->find($id);
+
+
+
+        var_dump($user);
+
+        $qb = $this->entityManager->createQueryBuilder();
+
+        $qb->select('u.id', 'u.username')->from(User::class, 'u')->innerJoin(Product::class, 'p');
+
+        var_dump($qb->getQuery()->getResult());
+
 
 
         if ($product == null) {
@@ -148,6 +165,10 @@ class WriteController extends AbstractActionController
         // Find a user with such ID.
         $product = $this->entityManager->getRepository(Product::class)
                                        ->find($id);
+
+        $query = $this->entityManager;
+
+
 
         if ($product == null) {
             $this->getResponse()->setStatusCode(404);

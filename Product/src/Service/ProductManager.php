@@ -34,6 +34,7 @@ class ProductManager
         $currentDate = date('Y-m-d H:i:s');
         // Create new Project entity.
         $product = new Product();
+        $product->setName($data['name']);
         $product->setInsurerId($data['insurer_id']);
         $product->setActive($data['active']);
         $product->setDescription($data['description']);

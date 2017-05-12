@@ -221,9 +221,9 @@ class UserForm extends Form
                 ]);
         }
         
-        // Add input for "status" field
+        // Add input for "active" field
         $inputFilter->add([
-                'name'     => 'status',
+                'name'     => 'active',
                 'required' => true,
                 'filters'  => [                    
                     ['name' => 'ToInt'],

@@ -10,7 +10,7 @@ use Zend\Config\Factory;
  * This service is responsible for adding/editing users
  * and changing user password.
  */
-class productRepoManager
+class ProductRepoManager
 {
     /**
      * Doctrine entity manager.
@@ -56,7 +56,6 @@ class productRepoManager
     {
         $currentDate = date('Y-m-d H:i:s');
         // Create new Project entity.
-        $productRepo = new ProductRepo();
         $productRepo->setActive($data['active']);
         $productRepo->setCreated($currentDate);
         $productRepo->setType($data['type']);

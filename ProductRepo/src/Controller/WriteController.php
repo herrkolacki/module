@@ -43,7 +43,7 @@ class WriteController extends AbstractActionController
     public function addAction()
     {
         // Create user form
-        $form = new productRepoForm('create', $this->entityManager);
+        $form = new ProductRepoForm('create', $this->entityManager);
         $request = new Request();
 
         // Check if user has submitted the form
@@ -61,7 +61,7 @@ class WriteController extends AbstractActionController
                 $data = $form->getData();
 
                 // Add productRepo.
-                $productRepo = $this->productRepoManager->addproductRepo($data);
+                $productRepo = $this->productRepoManager->addProductRepo($data);
 
                 // Redirect to "view" page
                 return $this->redirect()->toRoute('productRepo',
@@ -86,7 +86,7 @@ class WriteController extends AbstractActionController
         }
 
 
-        $productRepo = $this->entityManager->getRepository(productRepo::class)
+        $productRepo = $this->entityManager->getRepository(ProductRepo::class)
                 ->find($id);
 
 
@@ -113,7 +113,7 @@ class WriteController extends AbstractActionController
                 $data = $form->getData();
 
                 // Update the productRepo
-                $this->productRepoManager->updateproductRepo($productRepo, $data);
+                $this->productRepoManager->updateProductRepo($productRepo, $data);
                 
                 // Redirect to "view" page
                 return $this->redirect()->toRoute('productRepo',
@@ -143,7 +143,7 @@ class WriteController extends AbstractActionController
         }
 
         // Find a user with such ID.
-        $productRepo = $this->entityManager->getRepository(productRepo::class)
+        $productRepo = $this->entityManager->getRepository(ProductRepo::class)
                                            ->find($id);
 
         if ($productRepo == null) {

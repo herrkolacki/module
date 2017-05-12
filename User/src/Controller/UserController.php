@@ -33,12 +33,9 @@ class UserController extends AbstractActionController
      */
     public function __construct($entityManager, $userManager, $authService)
     {
-
         $this->authService = $authService;
         $this->entityManager = $entityManager;
         $this->userManager = $userManager;
-
-
     }
     
     /**
@@ -47,7 +44,6 @@ class UserController extends AbstractActionController
      */
     public function indexAction() 
     {
-
         $users = $this->entityManager->getRepository(User::class)
                 ->findBy([], ['id'=>'ASC']);
         
@@ -64,13 +60,16 @@ class UserController extends AbstractActionController
         // Create user form
         $form = new UserForm('create', $this->entityManager);
         $request = new Request();
-
+        $request->setMethod(Request::METHOD_POST);
+        $request->getHeaders()->addHeaders(['lala' => 'zomo']);
+        //var_dump($request->getHeaders());die();
 
         // Check if user has submitted the form
         if ($this->getRequest()->isPost()) {
             
             // Fill in the form with POST data
-            $data = $this->params()->fromPost();            
+            $data = $this->params()->fromPost();
+
 
             $form->setData($data);
 
@@ -143,7 +142,8 @@ class UserController extends AbstractActionController
         
         // Check if user has submitted the form
         if ($this->getRequest()->isPost()) {
-            
+
+
             // Fill in the form with POST data
             $data = $this->params()->fromPost();            
 

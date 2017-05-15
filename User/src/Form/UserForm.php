@@ -104,9 +104,9 @@ class UserForm extends Form{
         // Add "status" field
         $this->add([
             'type' => 'select',
-            'name' => 'status',
+            'name' => 'active',
             'options' => [
-                'label' => 'Status',
+                'label' => 'active',
                 'value_options' => [
                     1 => 'Active',
                     2 => 'Retired',
@@ -250,7 +250,7 @@ class UserForm extends Form{
         }
 
         // Add input for "active" field
-        $inputFilter->add([
+     /*   $inputFilter->add([
             'name' => 'active',
             'required' => true,
             'filters' => [
@@ -259,6 +259,6 @@ class UserForm extends Form{
             'validators' => [
                 ['name' => 'InArray', 'options' => ['haystack' => [1, 2]]]
             ],
-        ]);
+        ]);*/
     }
 }

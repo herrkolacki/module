@@ -40,10 +40,15 @@ class UserManager
         if(!isset($data['role_id'])){
             $data['role_id'] = (int)1;
         }
+        if(!isset($data['active'])){
+            $data['active'] = (int)0;
+        }
         // Create new User entity.
         $user = new User();
         $user->setEmail($data['email']);
         $user->setUsername($data['username']);
+        $user->setPhone($data['phone']);
+        $user->setActive($data['active']);
 
         // Encrypt password and store the password in encrypted state.
         $bcrypt = new Bcrypt();
@@ -73,9 +78,17 @@ class UserManager
         if($user->getEmail()!=$data['email'] && $this->checkUserExists($data['email'])) {
             throw new \Exception("Another user with email address " . $data['email'] . " already exists");
         }
-        
+        if($user->getPhone()!=$data['phone'] && $this->checkUserExists($data['phone'])) {
+            throw new \Exception("Another user with phone " . $data['phone'] . " already exists");
+        }
+        if($user->getUsername()!=$data['username'] && $this->checkUserExists($data['username'])) {
+            throw new \Exception("Another user with phone " . $data['username'] . " already exists");
+        }
+
         $user->setEmail($data['email']);
         $user->setUsername($data['username']);
+        $user->setRoleId($data['role_id']);
+        $user->setPhone($data['phone']);
 
         
         // Apply changes to database.

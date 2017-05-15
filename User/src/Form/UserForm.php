@@ -135,7 +135,7 @@ class UserForm extends Form{
         // Add input for "email" field
         $inputFilter->add([
             'name' => 'email',
-            'required' => true,
+            'required' => false,
             'filters' => [
                 ['name' => 'StringTrim'],
             ],
@@ -154,20 +154,20 @@ class UserForm extends Form{
                         'useMxCheck' => false,
                     ],
                 ],
-                [
+                /*[
                     'name' => UserExistsValidator::class,
                     'options' => [
                         'entityManager' => $this->entityManager,
                         'user' => $this->user
                     ],
-                ],
+                ],*/
             ],
         ]);
 
         // Add input for "username" field
         $inputFilter->add([
             'name' => 'username',
-            'required' => true,
+            'required' => false,
             'filters' => [
                 ['name' => 'StringTrim'],
             ],
@@ -179,13 +179,13 @@ class UserForm extends Form{
                         'max' => 30
                     ],
                 ],
-                [
+                /*[
                     'name' => UsernameExistsValidator::class,
                     'options' => [
                         'entityManager' => $this->entityManager,
                         'user' => $this->user
                     ],
-                ],
+                ],*/
             ],
         ]);
         // Add input for "username" field

@@ -39,9 +39,9 @@ class IndexController extends AbstractActionController
      */
     public function aboutAction() 
     {              
-        $appName = 'User Demo';
-        $appDescription = 'This demo shows how to implement user management with Zend Framework 3';
-        
+        $appName = 'Insurance';
+        $appDescription = 'to jest opis ale nie używany';
+
         // Return variables to view script with the help of
         // ViewObject variable container
         return new ViewModel([

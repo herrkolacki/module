@@ -28,7 +28,12 @@ class AuthAdapter implements AdapterInterface
      * @var string 
      */
     private $password;
-    
+
+    /**
+     * @var string
+     */
+    private $phone;
+
     /**
      * Entity manager.
      * @var Doctrine\ORM\EntityManager 
@@ -55,6 +60,14 @@ class AuthAdapter implements AdapterInterface
     {
         $this->email = $email;        
     }
+
+    /**
+     * Sets user phone.
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+    }
     
     /**
      * Sets password.     
@@ -71,7 +84,7 @@ class AuthAdapter implements AdapterInterface
     {                
         // Check the database if there is a user with such email.
         $user = $this->entityManager->getRepository(User::class)
-                ->findOneByUsername($this->username);
+                ->findOneByPhone($this->phone);
 
         // If there is no such user, return 'Identity Not Found' status.
         if ($user == null) {
@@ -103,7 +116,7 @@ class AuthAdapter implements AdapterInterface
             // saved in session for later use.
             return new Result(
                     Result::SUCCESS, 
-                    $this->username,
+                    $this->phone,
                     ['Authenticated successfully.']);        
         }             
         

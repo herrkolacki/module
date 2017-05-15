@@ -38,6 +38,13 @@ class LoginForm extends Form
                 'label' => 'Your username',
             ],
         ]);
+        $this->add([
+            'type'  => 'text',
+            'name' => 'phone',
+            'options' => [
+                'label' => 'Your phone',
+            ],
+        ]);
         
         // Add "password" field
         $this->add([            
@@ -111,8 +118,23 @@ class LoginForm extends Form
                     ],
                 ],
             ]);*/
-        $inputFilter->add([
+       /* $inputFilter->add([
             'name'     => 'username',
+            'required' => true,
+            'filters'  => [
+            ],
+            'validators' => [
+                [
+                    'name'    => 'StringLength',
+                    'options' => [
+                        'min' => 4,
+                        'max' => 64
+                    ],
+                ],
+            ],
+        ]);*/
+        $inputFilter->add([
+            'name'     => 'phone',
             'required' => true,
             'filters'  => [
             ],

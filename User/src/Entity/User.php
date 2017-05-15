@@ -31,7 +31,13 @@ class User
      */
     protected $username;
 
-    /** 
+    /**
+     * @ORM\Column(name="phone")
+     */
+    protected $phone;
+
+
+    /**
      * @ORM\Column(name="password")  
      */
     protected $password;
@@ -95,7 +101,25 @@ class User
     {
         $this->email = $email;
     }
-    
+
+    /**
+     * Returns phone.
+     * @return string
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * Sets phone.
+     * @param string $phone
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+    }
+
     /**
      * Returns username.
      * @return string     

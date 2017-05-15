@@ -18,8 +18,12 @@ $form->get('username')->setAttributes([
     'class'=>'form-control', 
     'placeholder'=>'John Doe'
     ]);
+$form->get('phone')->setAttributes([
+    'class'=>'form-control',
+    'placeholder'=>'Phone'
+]);
 
-$form->get('status')->setAttributes([
+$form->get('active')->setAttributes([
     'class'=>'form-control'
     ]);
 
@@ -57,6 +61,11 @@ $form->prepare();
             <?= $this->formElement($form->get('username')); ?>
             <?= $this->formElementErrors($form->get('username')); ?>
         </div>
+        <div class="form-group">
+            <?= $this->formLabel($form->get('phone')); ?>
+            <?= $this->formElement($form->get('phone')); ?>
+            <?= $this->formElementErrors($form->get('phone')); ?>
+        </div>
         
         <div class="form-group">
             <?= $this->formLabel($form->get('password')); ?>
@@ -71,9 +80,9 @@ $form->prepare();
         </div>
         
         <div class="form-group">
-            <?= $this->formLabel($form->get('status')); ?>
-            <?= $this->formElement($form->get('status')); ?>
-            <?= $this->formElementErrors($form->get('status')); ?>                  
+            <?= $this->formLabel($form->get('active')); ?>
+            <?= $this->formElement($form->get('active')); ?>
+            <?= $this->formElementErrors($form->get('active')); ?>
         </div>
         
         <?= $this->formElement($form->get('submit')); ?>

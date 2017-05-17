@@ -1,6 +1,7 @@
 <?php
 namespace Application\Service;
 
+use Zend\Authentication\Storage\Session as SessionStorage;
 /**
  * This service is responsible for determining which items should be in the main menu.
  * The items may be different depending on whether the user is authenticated or not.
@@ -22,10 +23,15 @@ class NavManager
     /**
      * Constructs the service.
      */
+
+    private $ses;
+    private $user;
     public function __construct($authService, $urlHelper) 
     {
         $this->authService = $authService;
         $this->urlHelper = $urlHelper;
+        $this->ses = new SessionStorage();
+        $this->user = $this->ses->read();
     }
     
     /**
@@ -36,7 +42,6 @@ class NavManager
         $url = $this->urlHelper;
 
         $items = [];
-        
         $items[] = [
             'id' => 'home',
             'label' => 'Home',

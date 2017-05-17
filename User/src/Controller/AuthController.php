@@ -8,6 +8,7 @@ use Zend\Authentication\Result;
 use Zend\Uri\Uri;
 use User\Form\LoginForm;
 use User\Entity\User;
+use Zend\Authentication\Storage\Session as SessionStorage;
 
 /**
  * This controller is responsible for letting the user to log in and log out.
@@ -47,6 +48,7 @@ class AuthController extends AbstractActionController
         $this->authManager = $authManager;
         $this->authService = $authService;
         $this->userManager = $userManager;
+
     }
     
     /**
@@ -90,6 +92,7 @@ class AuthController extends AbstractActionController
                 $result = $this->authManager->login($data['phone'],
                         $data['password'], $data['remember_me']);
 
+
                 // Check result.
                 if ($result->getCode() == Result::SUCCESS) {
                     /** potrzebne dane usera zeby zrobic tokena */
@@ -101,10 +104,12 @@ class AuthController extends AbstractActionController
                     }
 
                     $this->userManager->decodeToken($user->getToken());
-
+                    $this->ses = new SessionStorage();
+                    $this->ses->write($user);
                     // Get redirect URL.
                     $redirectUrl = $this->params()->fromPost('redirect_url', '');
-                    
+
+
                     if (!empty($redirectUrl)) {
                         // The below check is to prevent possible redirect attack 
                         // (if someone tries to redirect user to another domain).

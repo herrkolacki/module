@@ -49,7 +49,7 @@ class Module
         $controller = $event->getTarget();
         $controllerName = $event->getRouteMatch()->getParam('controller', null);
         $actionName = $event->getRouteMatch()->getParam('action', null);
-        
+
         // Convert dash-style action name to camel-case.
         $actionName = str_replace('-', '', lcfirst(ucwords($actionName, '-')));
         
@@ -71,7 +71,7 @@ class Module
                 ->setPort(null)
                 ->setUserInfo(null);
             $redirectUrl = $uri->toString();
-            
+
             // Redirect the user to the "Login" page.
             return $controller->redirect()->toRoute('login', [], 
                     ['query'=>['redirectUrl'=>$redirectUrl]]);

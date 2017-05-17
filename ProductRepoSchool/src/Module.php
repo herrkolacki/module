@@ -1,6 +1,6 @@
 <?php
 
-namespace Product;
+namespace ProductRepoSchool;
 
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 
@@ -18,6 +18,5 @@ class Module implements ConfigProviderInterface{
     public function getServiceConfig(){
         return [];
     }
-
 
 }

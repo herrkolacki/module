@@ -1,0 +1,79 @@
+<?php
+$this->headTitle('Add productRepo');
+
+$this->mainMenu()->setActiveItemId('productRepo');
+
+
+$form->get('name')->setAttributes([
+    'class'=>'form-control',
+    'placeholder'=>'name'
+]);
+
+$form->get('insurer_id')->setAttributes([
+    'class'=>'form-control',
+    'placeholder'=>'ubezpieczyciel'
+]);
+
+$form->get('active')->setAttributes([
+    'class'=>'form-control'
+]);
+
+$form->get('description')->setAttributes([
+    'class'=>'form-control'
+]);
+
+$form->get('access_code')->setAttributes([
+    'class'=>'form-control'
+]);
+
+$form->get('submit')->setAttributes(['class'=>'btn btn-primary']);
+
+$form->prepare();
+?>
+
+<h1> Edit productRepo</h1>
+
+<p>
+    Wypelnij wszystko <i>Create</i> button.
+</p>
+
+<div class="row">
+    <div class="col-md-6">
+        <?= $this->form()->openTag($form); ?>
+
+        <div class="form-group">
+            <?= $this->formLabel($form->get('name')); ?>
+            <?= $this->formElement($form->get('name')); ?>
+            <?= $this->formElementErrors($form->get('name')); ?>
+        </div>
+
+        <div class="form-group">
+            <?= $this->formLabel($form->get('insurer_id')); ?>
+            <?= $this->formElement($form->get('insurer_id')); ?>
+            <?= $this->formElementErrors($form->get('insurer_id')); ?>
+        </div>
+
+        <div class="form-group">
+            <?= $this->formLabel($form->get('active')); ?>
+            <?= $this->formElement($form->get('active')); ?>
+            <?= $this->formElementErrors($form->get('active')); ?>
+        </div>
+
+        <div class="form-group">
+            <?= $this->formLabel($form->get('description')); ?>
+            <?= $this->formElement($form->get('description')); ?>
+            <?= $this->formElementErrors($form->get('description')); ?>
+        </div>
+
+        <div class="form-group">
+            <?= $this->formLabel($form->get('access_code')); ?>
+            <?= $this->formElement($form->get('access_code')); ?>
+            <?= $this->formElementErrors($form->get('access_code')); ?>
+        </div>
+
+        <?= $this->formElement($form->get('submit')); ?>
+
+        <?= $this->form()->closeTag(); ?>
+    </div>
+</div>
+

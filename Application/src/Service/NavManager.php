@@ -2,6 +2,7 @@
 namespace Application\Service;
 
 use Zend\Authentication\Storage\Session as SessionStorage;
+
 /**
  * This service is responsible for determining which items should be in the main menu.
  * The items may be different depending on whether the user is authenticated or not.

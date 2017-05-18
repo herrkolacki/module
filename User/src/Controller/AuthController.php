@@ -8,6 +8,7 @@ use Zend\Authentication\Result;
 use Zend\Uri\Uri;
 use User\Form\LoginForm;
 use User\Entity\User;
+use Zend\Http\Request;
 use Zend\Authentication\Storage\Session as SessionStorage;
 
 /**
@@ -103,9 +104,17 @@ class AuthController extends AbstractActionController
                         $this->userManager->generateToken($user);
                     }
 
-                    $this->userManager->decodeToken($user->getToken());
+                   $this->userManager->decodeToken($user->getToken());
                     $this->ses = new SessionStorage();
                     $this->ses->write($user);
+
+                    $request = new Request();
+                    $request->setMethod(Request::METHOD_GET);
+                    $request->getHeaders()->addHeaders(['auth' => $user->getToken()]);
+                    $request->getHeaders()->addHeaders(['WWW-Authenticate' => 'Negotiate']);
+                    header('Authorization: Basic '.$user->getToken());
+                  //  $request->setPost($request->getHeaders()->addHeaders(['auth' => $user->getToken()]));
+                    var_dump($request->getHeaders());
                     // Get redirect URL.
                     $redirectUrl = $this->params()->fromPost('redirect_url', '');
 
@@ -121,7 +130,8 @@ class AuthController extends AbstractActionController
                     // If redirect URL is provided, redirect the user to that URL;
                     // otherwise redirect to Home page.
                     if(empty($redirectUrl)) {
-                        return $this->redirect()->toRoute('home');
+                        return  $this->redirect()->toUrl('/products?'.$user->getToken());
+                            //$this->redirect()->toRoute('home');
                     } else {
                         $this->redirect()->toUrl($redirectUrl);
                     }

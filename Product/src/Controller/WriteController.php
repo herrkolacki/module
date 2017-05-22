@@ -96,10 +96,10 @@ class WriteController extends AbstractActionController
         $user = $this->entityManager->getRepository(User::class)
                                        ->find($id);
 
-        var_dump($user);
+      //  var_dump($user);
         $qb = $this->entityManager->createQueryBuilder();
         $qb->select('p.id as productId', 'u.id as userId', 'u.username', 'p.name', 'p.created as zombi', 'u.created as dupa')->from(User::class, 'u')->innerJoin(Product::class, 'p')->where('u.id = :userId')->setParameter('userId', 1);//->innerJoin(Product::class, 'p');
-        var_dump($qb->getQuery()->getResult());
+      //  var_dump($qb->getQuery()->getResult());
 
 
 

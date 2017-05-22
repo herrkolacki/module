@@ -58,19 +58,18 @@ class ListController extends AbstractActionController
 
         $ob = new Role();
 
-        header('Authorization: Basic '.'232432423');
+
         $nowy = new SessionStorage();
         $role = $nowy->read();
-        var_dump($role->getRoleId());
 
         $request = new Request();
        // $request->setMethod(Request::METHOD_POST);
-        $request->getHeaders()->addHeaders(['Authenticate' => 'Negotiate']);
-        $ob->addPermission(4,'index');
-        var_dump($_SERVER);
+        //$request->getHeaders()->addHeaders(['Authenticate' => 'Negotiate']);
+       $ob->addPermission(4,'index'); // dodaje upraweniena do roli
+       /* var_dump($_SERVER);
         var_dump($request->getHeaders('Authorization'));
         var_dump($request->getHeaders('Authenticate'));
-        var_dump(apache_response_headers());
+        var_dump(apache_response_headers());*/
 
         if($ob->checkRole($role->getRoleId(), 'index')){
 
@@ -82,7 +81,12 @@ class ListController extends AbstractActionController
                 'products' => $products
             ]);
         }else{
-            die('jesteś śmieciem');
+            $products = $this->entityManager->getRepository(Product::class)
+                                            ->findBy(['user_id' => $role->getId()], ['id' => 'ASC']);
+
+            return new ViewModel([
+                'products' => $products
+            ]);
         }
     }
 

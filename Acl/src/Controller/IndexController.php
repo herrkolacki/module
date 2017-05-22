@@ -34,7 +34,7 @@ class IndexController extends AbstractActionController
         $this->acl->addResource(new Resource('add'));
         $this->acl->addResource(new Resource('view'));
         $this->acl->addResource(new Resource('edit'));
-        //$$this->acl->deny('4', 'index');
+       // $this->acl->deny('4', 'index');
         $this->acl->allow('1', 'index');
     }
     

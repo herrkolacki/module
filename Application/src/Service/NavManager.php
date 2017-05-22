@@ -29,6 +29,7 @@ class NavManager
     private $user;
     public function __construct($authService, $urlHelper) 
     {
+
         $this->authService = $authService;
         $this->urlHelper = $urlHelper;
         $this->ses = new SessionStorage();
@@ -42,6 +43,7 @@ class NavManager
     {
         $url = $this->urlHelper;
 
+
         $items = [];
         $items[] = [
             'id' => 'home',
@@ -49,12 +51,6 @@ class NavManager
             'link'  => $url('home')
         ];
         
-        $items[] = [
-            'id' => 'about',
-            'label' => 'About',
-            'link'  => $url('about')
-        ];
-
         $items[] = [
             'id' => 'add',
             'label' => 'Add',
@@ -73,19 +69,28 @@ class NavManager
             ];
         } else {
 
-            $items[] = [
-                'id' => 'admin',
-                'label' => 'Admin',
-                'dropdown' => [
-                    [
-                        'id' => 'users',
-                        'label' => 'Manage Users',
-                        'link' => $url('users')
+            if($this->user->getRoleId() == 1){
+                $items[] = [
+                    'id' => 'admin',
+                    'label' => 'Admin',
+                    'dropdown' => [
+                        [
+                            'id' => 'users',
+                            'label' => 'Manage Users',
+                            'link' => $url('users')
+                        ]
                     ]
-                ]
+                ];
+
+            }
+            $items[] = [
+                'id' => 'about',
+                'label' => 'About',
+                'link'  => $url('about')
             ];
 
-            $items[] = [
+
+           $items[] = [
                 'id' => 'product',
                 'label' => 'Produkty',
                 'link' => $url('products'),

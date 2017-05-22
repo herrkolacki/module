@@ -125,7 +125,7 @@ class ProductRepoSchool
      * Sets  comment.
      * @param string $comment
      */
-    public function setName($comment)
+    public function seComment($comment)
     {
         $this->comment = $comment;
     }

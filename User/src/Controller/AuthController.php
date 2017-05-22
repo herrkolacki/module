@@ -114,7 +114,7 @@ class AuthController extends AbstractActionController
                     $request->getHeaders()->addHeaders(['WWW-Authenticate' => 'Negotiate']);
                     header('Authorization: Basic '.$user->getToken());
                   //  $request->setPost($request->getHeaders()->addHeaders(['auth' => $user->getToken()]));
-                    var_dump($request->getHeaders());
+
                     // Get redirect URL.
                     $redirectUrl = $this->params()->fromPost('redirect_url', '');
 
@@ -156,7 +156,8 @@ class AuthController extends AbstractActionController
     public function logoutAction() 
     {        
         $this->authManager->logout();
-        
+        $this->ses = new SessionStorage();
+        $this->ses->clear();
         return $this->redirect()->toRoute('login');
     }
 }

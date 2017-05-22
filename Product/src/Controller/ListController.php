@@ -6,9 +6,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Session\SessionManager;
 use Zend\View\Model\ViewModel;
 use Product\Entity\Product;
-
 use Zend\Http\Request;
-
 use Zend\Authentication\Storage\Session as SessionStorage;
 use Acl\Controller\IndexController as Role;
 
@@ -60,29 +58,31 @@ class ListController extends AbstractActionController
 
 
         $nowy = new SessionStorage();
-        $role = $nowy->read();
+        $user = $nowy->read();
 
         $request = new Request();
        // $request->setMethod(Request::METHOD_POST);
         //$request->getHeaders()->addHeaders(['Authenticate' => 'Negotiate']);
-       $ob->addPermission(4,'index'); // dodaje upraweniena do roli
+       //$ob->addPermission(4,'index'); // dodaje upraweniena do roli
        /* var_dump($_SERVER);
         var_dump($request->getHeaders('Authorization'));
         var_dump($request->getHeaders('Authenticate'));
         var_dump(apache_response_headers());*/
 
-        if($ob->checkRole($role->getRoleId(), 'index')){
-
+        if($ob->checkRole($user->getRoleId(), 'index')) {
 
             $products = $this->entityManager->getRepository(Product::class)
                                             ->findBy([], ['id' => 'ASC']);
 
+
             return new ViewModel([
                 'products' => $products
             ]);
-        }else{
+        } else {
             $products = $this->entityManager->getRepository(Product::class)
-                                            ->findBy(['user_id' => $role->getId()], ['id' => 'ASC']);
+                                            ->findBy(['userId' => $user->getId()], ['id' => 'ASC']);
+
+
 
             return new ViewModel([
                 'products' => $products

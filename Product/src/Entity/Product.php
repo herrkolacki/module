@@ -4,7 +4,7 @@ namespace Product\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * This class represents a registered user.
+ * This class represents a products.
  * @ORM\Entity()
  * @ORM\Table(name="products")
  */

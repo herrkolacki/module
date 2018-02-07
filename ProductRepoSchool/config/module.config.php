@@ -36,8 +36,8 @@ return [
     ],
     'controllers' => [
         'factories' => [
-            Controller\ListController::class => Controller\Factory\ListControllerFactory::class,
-            Controller\WriteController::class => Controller\Factory\WriteControllerFactory::class,
+            Controller\ListController::class => Controller\ListControllerFactory::class,
+            Controller\WriteController::class => Controller\WriteControllerFactory::class,
         ],
     ],
     // The 'access_filter' key is used by the User module to restrict or permit
@@ -57,7 +57,7 @@ return [
     ],
      'service_manager' => [
        'factories' => [
-               Service\ProductRepoSchoolManager::class => Service\Factory\ProductRepoSchoolManagerFactory::class,
+               Service\ProductRepoSchoolManager::class => Service\ProductRepoSchoolManagerFactory::class,
 
         ],
     ],

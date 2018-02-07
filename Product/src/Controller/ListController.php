@@ -6,9 +6,12 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Session\SessionManager;
 use Zend\View\Model\ViewModel;
 use Product\Entity\Product;
+use User\Entity\User;
 use Zend\Http\Request;
+use User\Service\UserManager;
 use Zend\Authentication\Storage\Session as SessionStorage;
 use Acl\Controller\IndexController as Role;
+use Zend\View\Model\JsonModel;
 
 /**
  * This controller is responsible for letting the user to log in and log out.
@@ -26,7 +29,9 @@ class ListController extends AbstractActionController
      * @var User\Service\AuthManager 
      */
     private $authManager;
-    
+
+    private $user;
+
     /**
      * Auth service.
      * @var \Zend\Authentication\AuthenticationService
@@ -44,6 +49,7 @@ class ListController extends AbstractActionController
         $this->authManager = $authManager;
         $this->authService = $authService;
 
+
     }
 
 
@@ -51,42 +57,48 @@ class ListController extends AbstractActionController
      * This is the default "index" action of the controller. It displays the
      * list of products.
      */
-    public function indexAction()
-    {
+    public function indexAction(){
+
+        var_dump($this->user); die();
 
         $ob = new Role();
 
+        $ob->addPermission(3, 'index'); // dodaje upraweniena do roli
+        if($this->user){
+            if($ob->checkRole($this->user->getRoleId(), 'index')){
 
-        $nowy = new SessionStorage();
-        $user = $nowy->read();
+                $products = $this->entityManager->getRepository(Product::class)
+                                                ->findBy([], ['id' => 'ASC']);
 
-        $request = new Request();
-       // $request->setMethod(Request::METHOD_POST);
-        //$request->getHeaders()->addHeaders(['Authenticate' => 'Negotiate']);
-       //$ob->addPermission(4,'index'); // dodaje upraweniena do roli
-       /* var_dump($_SERVER);
-        var_dump($request->getHeaders('Authorization'));
-        var_dump($request->getHeaders('Authenticate'));
-        var_dump(apache_response_headers());*/
+                $jsonProduct = new JsonModel([
+                    'products' => $products,
+                    'newProduct' => true
+                ]);
+                return $jsonProduct;
+            }else{
+                $products = (array)$this->entityManager->getRepository(Product::class)
+                                                       ->findBy(['userId' => $this->user->getId()], ['id' => 'ASC']);
 
-        if($ob->checkRole($user->getRoleId(), 'index')) {
+                //  $jsonEncode = json_encode($products);
 
+                // return $jsonEncode;
+
+                $jsonProduct = new JsonModel([
+                    'products' => $products,
+                    'newProduct' => false,
+
+                ]);
+                return $jsonProduct;
+            }
+        }else{
             $products = $this->entityManager->getRepository(Product::class)
                                             ->findBy([], ['id' => 'ASC']);
 
-
-            return new ViewModel([
-                'products' => $products
+            $jsonProduct = new JsonModel([
+                'products' => $products,
+                'newProduct' => true
             ]);
-        } else {
-            $products = $this->entityManager->getRepository(Product::class)
-                                            ->findBy(['userId' => $user->getId()], ['id' => 'ASC']);
-
-
-
-            return new ViewModel([
-                'products' => $products
-            ]);
+            return $jsonProduct;
         }
     }
 

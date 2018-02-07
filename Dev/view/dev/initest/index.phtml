@@ -1,0 +1,22 @@
+<?php
+
+$title = 'Controller Init test';
+
+$this->headTitle($this->escapeHtml($title));
+
+//\Zend\Debug\Debug::dump( __FILE__.' ['.__LINE__ . ']' );
+
+echo $this->devMenuLocal();
+
+    echo ''
+        . '<h1>' . $title . '</h1>'
+        //. '<p>' . __FILE__ . '</p>'
+        . '<p>Tu sie odpalił  index.phtml</p>'
+        . '<p>'
+                . '<strong>Init test</strong> - przykład działania metody init w Controlerze '
+                . '<br /> - Debug odpalony w kazdej metodzie od poziomu Factory'
+                . '<br /> - przy okazji można się pobawić priotytami events->attach dla metod "init" i "test"'
+        . '</p>'
+
+        . '</ul>'
+    ;

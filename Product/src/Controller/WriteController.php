@@ -10,7 +10,8 @@ use User\Entity\User;
 use Zend\View\Model\JsonModel;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\DBAL\Query\QueryBuilder;
-
+use Zend\Authentication\Storage\Session as SessionStorage;
+use Acl\Controller\IndexController as Role;
 
 /**
  * This controller is responsible for user management (adding, editing, 
@@ -46,6 +47,10 @@ class WriteController extends AbstractActionController
      */
     public function addAction()
     {
+        $ob = new Role();
+        $ss = new SessionStorage();
+        $user = $ss->read();
+        if($ob->checkRole($user->getRoleId(), 'add')){
         // Create user form
         $form = new ProductForm('create', $this->entityManager);
         $request = new Request();
@@ -76,6 +81,9 @@ class WriteController extends AbstractActionController
         return new ViewModel([
                 'form' => $form
             ]);
+        } else {
+            return $this->redirect()->toRoute('logout');
+        }
     }
     
     /**
@@ -83,12 +91,17 @@ class WriteController extends AbstractActionController
      */
     public function editAction() 
     {
+        $ob = new Role();
+        $ss = new SessionStorage();
+        $user = $ss->read();
+        if(!$ob->checkRole($user->getRoleId(), 'edit')){
+            return $this->redirect()->toRoute('logout');
+        }
         $id = (int)$this->params()->fromRoute('id', -1);
         if ($id<1) {
             $this->getResponse()->setStatusCode(404);
             return;
         }
-
 
         $product = $this->entityManager->getRepository(Product::class)
                 ->find($id);

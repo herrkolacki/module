@@ -55,31 +55,12 @@ class LoginForm extends Form
             ],
         ]);
         
-        // Add "remember_me" field
-        $this->add([            
-            'type'  => 'checkbox',
-            'name' => 'remember_me',
-            'options' => [
-                'label' => 'Remember me',
-            ],
-        ]);
-        
-        // Add "redirect_url" field
-        $this->add([            
+        $this->add([
             'type'  => 'hidden',
             'name' => 'redirect_url'
         ]);
         
-        // Add the CSRF field
-        $this->add([
-            'type' => 'csrf',
-            'name' => 'csrf',
-            'options' => [
-                'csrf_options' => [
-                'timeout' => 600
-                ]
-            ],
-        ]);
+
         
         // Add the Submit button
         $this->add([

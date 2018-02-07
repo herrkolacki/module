@@ -39,6 +39,7 @@ class ProductManager
         $product->setActive($data['active']);
         $product->setDescription($data['description']);
         $product->setAccessCode($data['access_code']);
+        $product->setPrice($data['price']);
         $product->setCreated($currentDate);
         $product->setModified($currentDate);
                 
@@ -61,6 +62,7 @@ class ProductManager
         $product->setActive($data['active']);
         $product->setDescription($data['description']);
         $product->setModified($currentDate);
+        $product->setPrice($data['price']);
         $this->entityManager->persist($product);
         // Apply changes to database.
         $this->entityManager->flush();

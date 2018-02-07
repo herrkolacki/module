@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 return [
       'controllers' => [
         'factories' => [
-            Controller\IndexController::class => Controller\Factory\IndexControllerFactory::class,
+            Controller\IndexController::class => Controller\IndexControllerFactory::class,
                     ],
     ],
     // The 'access_filter' key is used by the User module to restrict or permit

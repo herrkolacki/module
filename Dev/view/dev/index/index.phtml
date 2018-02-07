@@ -1,0 +1,27 @@
+<?php
+
+$title = 'Dev';
+
+$this->headTitle($this->escapeHtml($title));
+
+//\Zend\Debug\Debug::dump( __FILE__.' ['.__LINE__ . ']' );
+
+echo $this->devMenuLocal();
+
+    echo ''
+        . '<h1>' . $title . '</h1>'
+        //. '<p>' . __FILE__ . '</p>'
+        . '<ul>'
+            . '<li><strong>Config</strong> - konfiguracja systemu z podziałem na klucze główne</li>'
+            . '<li><strong>JSON</strong> - przykłady odpowiedzi systemy w modelu View\Model\JsonModel z nagłówkami itd'
+                . '<br /> - w kluczu resources.actions idą dostępne ścieżki :) '
+            . '</li>'
+            . '<li><strong>My IP</strong> - przykład odpowiedzi View\Model\ViewModel + dostępu do getRequest + przekazanie serviceManagera z Factory</li>'
+            . '<li>'
+                . '<strong>Init test</strong> - przykład działania metody init w Controlerze '
+                . '<br /> - Debug odpalony w kazdej metodzie od poziomu Factory'
+                . '<br /> - przy okazji można się pobawić priotytami events->attach dla metod "init" i "test"'
+            . '</li>'
+        . '</ul>'
+        . '<p>NOW: <strong>' . date ( 'Y-m-d H:i:s' ) . '</strong> - chyba mamy zły czas na serwerze :)</p>'
+    ;

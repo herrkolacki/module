@@ -1,0 +1,57 @@
+<?php
+
+$config = $this->config;
+$key = $this->key;
+$title = ($key ? '' . $key . ': ' : '') . 'configuration';
+$this->headTitle($this->escapeHtml($title));
+
+//\Zend\Debug\Debug::dump( $config["mainKeys"], __METHOD__ . ' [' . __LINE__ . '], $config: ' );
+
+$menu = [];
+
+foreach ( $config["mainKeys"] as $item ) {
+    $menu[] = '<a ' . ($key === $item ? 'class="active"' : '') . ' href="' . $this->url($this->route, ['action' => 'index', 'key' => $item]) . '">' . $item . '</a>';
+}
+
+//$menu = implode(' &bull; ', $menu);
+$menu = implode(' ', $menu);
+
+echo $this->devMenuLocal();
+
+echo ''
+
+    . '<div class="row">'
+        . '<article class="col-md-12">'
+            . '<h1>' . $title . '</h1>'
+            . '<div class="conf-menu">' . $menu . '</div>'
+            . '<hr />'
+;
+
+
+if (NULL===$config["localKeys"]) {
+    echo '<pre>Wybierz klucz z menu :) </pre>';
+} else {
+    \Zend\Debug\Debug::dump( $config["localKeys"] );
+}
+
+echo ''
+        . '</article>'
+    . '</div>'
+;
+
+echo ''
+    . '<style>'
+    . '.conf-menu{overflow: hidden;}'
+. '.conf-menu a{
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    display: block;
+    float: left;
+    margin: 0.1em;
+    padding: 0 0.3em;
+    }'
+        . '.conf-menu a.active{color: red;}'
+    . '</style>'
+;
+
+//\Zend\Debug\Debug::dump( $config["localKeys"], __FILE__ . ' [' . __LINE__ . '], $config: ' );

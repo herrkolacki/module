@@ -36,8 +36,8 @@ return [
     ],
     'controllers' => [
         'factories' => [
-            Controller\ListController::class => Controller\Factory\ListControllerFactory::class,
-            Controller\WriteController::class => Controller\Factory\WriteControllerFactory::class,
+            Controller\ListController::class => Controller\ListControllerFactory::class,
+            Controller\WriteController::class => Controller\WriteControllerFactory::class,
         ],
     ],
     // The 'access_filter' key is used by the User module to restrict or permit
@@ -47,17 +47,17 @@ return [
             Controller\WriteController::class => [
                  //['actions' => ['view', 'offer'], 'allow' => '*'],
                 // Give access to "index", "add", "edit", "view", "changePassword" actions to authorized users only.
-                ['actions' => ['add', 'edit'], 'allow' => '@']
+                ['actions' => ['add', 'edit', 'view'], 'allow' => '*']
             ],
             Controller\ListController::class => [
                 // Give access to "index", "add", "edit", "view", "changePassword" actions to authorized users only.
-                ['actions' => ['list', 'offer'], 'allow' => '@']
+                ['actions' => ['index', 'offer'], 'allow' => '*']
             ],
         ]
     ],
      'service_manager' => [
        'factories' => [
-               Service\ProductManager::class => Service\Factory\ProductManagerFactory::class,
+               Service\ProductManager::class => Service\ProductManagerFactory::class,
 
         ],
     ],

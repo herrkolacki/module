@@ -48,7 +48,7 @@ return [
     ],
     'controllers' => [
         'factories' => [
-            Controller\IndexController::class => Controller\Factory\IndexControllerFactory::class,
+            Controller\IndexController::class => Controller\IndexControllerFactory::class,
         ],
     ],
     // The 'access_filter' key is used by the User module to restrict or permit
@@ -74,12 +74,12 @@ return [
     ],
     'service_manager' => [
         'factories' => [
-            Service\NavManager::class => Service\Factory\NavManagerFactory::class,
+            Service\NavManager::class => Service\NavManagerFactory::class,
         ],
     ],
     'view_helpers' => [
         'factories' => [
-            View\Helper\Menu::class => View\Helper\Factory\MenuFactory::class,
+            View\Helper\Menu::class => View\Helper\MenuFactory::class,
             View\Helper\Breadcrumbs::class => InvokableFactory::class,
         ],
         'aliases' => [

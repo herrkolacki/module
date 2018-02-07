@@ -2,6 +2,9 @@
 namespace Application\Service;
 
 use Zend\Authentication\Storage\Session as SessionStorage;
+use Zend\Http\Request;
+use User\Entity\User;
+use User\Service\UserManager;
 
 /**
  * This service is responsible for determining which items should be in the main menu.
@@ -25,15 +28,34 @@ class NavManager
      * Constructs the service.
      */
 
-    private $ses;
+    private $entityManager;
+
+
     private $user;
-    public function __construct($authService, $urlHelper) 
+    public function __construct($authService, $urlHelper, $entityManager)
     {
 
         $this->authService = $authService;
         $this->urlHelper = $urlHelper;
-        $this->ses = new SessionStorage();
-        $this->user = $this->ses->read();
+        $this->entityManager = $entityManager;
+       $request = new Request();
+        $request->getHeaders()->addHeaders(['authorization' => 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE1MTM0MTkxMDQsImRhdGEiOnsidXNlcklkIjoiNiIsInJvbGUiOiIxIiwicGFzcyI6Ik1vamUxMjM0In19.YVAaNfMMZsaGA6uh9V3FvjaGMIOfSU8jfBL65VXG92Xi2uYa3zMaRRdAoQe61KTEooGRsCuIVc0I-sI1xRui9A']);
+        $cos = $request->getHeader('authorization');
+
+        if($cos){
+            $cosValue = $cos->getFieldValue();
+            $userManager = new UserManager($this->entityManager);
+            $userToken = $userManager->decodeToken($cosValue);
+            if(!$userToken){
+                $this->user = $this->entityManager->getRepository(User::class)
+                                                  ->find(1);
+
+            }
+
+            $this->user = $this->entityManager->getRepository(User::class)
+                                              ->find($userToken->data->userId);
+        }
+        //var_dump($request->getHeaders());// pobiera wszystkie headery...
     }
     
     /**
@@ -42,7 +64,6 @@ class NavManager
     public function getMenuItems() 
     {
         $url = $this->urlHelper;
-
 
         $items = [];
         $items[] = [
@@ -60,7 +81,8 @@ class NavManager
         // Display "Login" menu item for not authorized user only. On the other hand,
         // display "Admin" and "Logout" menu items only for authorized users.
 
-        if (!$this->authService->hasIdentity()) {
+      //  if (!$this->authService->hasIdentity()) {
+        if(!$this->user){
             $items[] = [
                 'id' => 'login',
                 'label' => 'Sign in',
@@ -69,7 +91,7 @@ class NavManager
             ];
         } else {
 
-            if($this->user->getRoleId() == 1){
+          /*  if($this->user->getRoleId() == 1){
                 $items[] = [
                     'id' => 'admin',
                     'label' => 'Admin',
@@ -82,7 +104,12 @@ class NavManager
                     ]
                 ];
 
-            }
+            }*/
+            $items[] = [
+                'id' => 'changePassword',
+                'label' => 'zmien pass',
+                'link'  => $url('change-password')
+            ];
             $items[] = [
                 'id' => 'about',
                 'label' => 'About',
@@ -102,16 +129,13 @@ class NavManager
                 'label' => $this->authService->getIdentity(),
                 'float' => 'right',
 
-                ];
-                $items[] = [
-                        'id' => 'logout',
-                        'label' => 'Sign out',
-                        'link' => $url('logout'),
-                        'float' => 'right',
-                    ];
-
-
-
+            ];
+            $items[] = [
+                'id' => 'logout',
+                'label' => 'Sign out',
+                'link' => $url('logout'),
+                'float' => 'right',
+            ];
         }
 
         return $items;

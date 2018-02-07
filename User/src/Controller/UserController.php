@@ -181,6 +181,7 @@ class UserController extends AbstractActionController{
      */
     public function changePasswordAction(){
         $id = (int)$this->params()->fromRoute('id', -1);
+        var_dump($id); die();
         if($id < 1){
             $this->getResponse()->setStatusCode(404);
             return;

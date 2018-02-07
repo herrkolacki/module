@@ -48,6 +48,16 @@ return [
                     ],
                 ],
             ],
+              'change-password' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route'    => '/change-password',
+                    'defaults' => [
+                        'controller' => Controller\UserController::class,
+                        'action'     => 'changePassword',
+                    ],
+                ],
+            ],
             'users' => [
                 'type'    => Segment::class,
                 'options' => [
@@ -66,8 +76,8 @@ return [
     ],
     'controllers' => [
         'factories' => [
-            Controller\AuthController::class => Controller\Factory\AuthControllerFactory::class,
-            Controller\UserController::class => Controller\Factory\UserControllerFactory::class,            
+            Controller\AuthController::class => Controller\AuthControllerFactory::class,
+            Controller\UserController::class => Controller\UserControllerFactory::class,
         ],
     ],
     // The 'access_filter' key is used by the User module to restrict or permit
@@ -79,16 +89,17 @@ return [
                 // to anyone.
                 ['actions' => ['resetPassword', 'message', 'setPassword', 'add'], 'allow' => '*'],
                 // Give access to "index", "add", "edit", "view", "changePassword" actions to authorized users only.
-                ['actions' => ['index', 'add', 'edit', 'view', 'changePassword'], 'allow' => '@']
+                ['actions' => ['index',  'edit', 'view', 'changePassword'], 'allow' => '@']
             ],
         ]
     ],
     'service_manager' => [
         'factories' => [
-            \Zend\Authentication\AuthenticationService::class => Service\Factory\AuthenticationServiceFactory::class,
-            Service\AuthAdapter::class => Service\Factory\AuthAdapterFactory::class,
-            Service\AuthManager::class => Service\Factory\AuthManagerFactory::class,
-            Service\UserManager::class => Service\Factory\UserManagerFactory::class,
+            \Zend\Authentication\AuthenticationService::class => Service\AuthenticationServiceFactory::class,
+            Service\AuthAdapter::class => Service\AuthAdapterFactory::class,
+            Service\AuthManager::class => Service\AuthManagerFactory::class,
+            Service\UserManager::class => Service\UserManagerFactory::class,
+            Service\UserToken::class => Service\UserTokenFactory::class,
         ],
     ],
     'view_manager' => [

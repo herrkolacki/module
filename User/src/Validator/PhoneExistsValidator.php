@@ -55,6 +55,7 @@ class PhoneExistsValidator extends AbstractValidator
      * @return bool
      */
     public function isValid($value){
+        strip_tags($value);
         if(!is_scalar($value)){
             $this->error(self::NOT_SCALAR);
             return false;

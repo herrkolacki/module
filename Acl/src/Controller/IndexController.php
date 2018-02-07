@@ -27,15 +27,22 @@ class IndexController extends AbstractActionController
     {
         $this->acl = new Acl();
 
-        $roleGuest = new Role('4');
-        $this->acl->addRole($roleGuest);
-        $this->acl->addRole(new Role('1'), $roleGuest);
+        $roleKlient = new Role('4');
+        $roleAgent = new Role('3');
+        $roleOpiekun = new Role('2');
+        $roleAdmin = new Role('1');
+        $this->acl->addRole($roleKlient);
+        $this->acl->addRole($roleAgent, $roleKlient);
+        $this->acl->addRole($roleOpiekun,$roleAgent);
+        $this->acl->addRole($roleAdmin, $roleOpiekun);
         $this->acl->addResource(new Resource('index'));
         $this->acl->addResource(new Resource('add'));
         $this->acl->addResource(new Resource('view'));
         $this->acl->addResource(new Resource('edit'));
-       // $this->acl->deny('4', 'index');
-        $this->acl->allow('1', 'index');
+        $this->acl->deny('4', 'index');
+        $this->acl->allow('1', ['index', 'add', 'edit', 'view']);
+        //$this->acl->allow('1', 'add');
+
     }
     
     public function checkRole($role, $resource){

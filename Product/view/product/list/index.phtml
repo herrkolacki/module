@@ -5,19 +5,20 @@ $this->mainMenu()->setActiveItemId('product');
 
 <h1>Manage products</h1>
 
-
+<?php if($newProduct):?>
 <p>
     <a class="btn btn-default" href="
     <?= $this->url('product', ['action' => 'add']); ?>">
         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New product
     </a>
 </p>
-
+<?php endif; ?>
 <table class="table table-striped">
     <tr>
         <th>ID</th>
         <th>Name</th>
         <th>Date Created</th>
+        <th>Cena</th>
         <th>Actions</th>
     </tr>
     <?php foreach($products as $product): ?>
@@ -26,12 +27,22 @@ $this->mainMenu()->setActiveItemId('product');
             <td><?= $this->escapeHtml($product->getName()); ?></a>
             </td>
             <td><?= $this->escapeHtml($product->getCreated()); ?></td>
+            <td><?= $this->escapeHtml($product->getPrice()); ?></td>
+           <?php if($newProduct):?>
             <td>
                 <a class="btn btn-info" href="<?= $this->url('product',
                     ['action' => 'edit', 'id' => $product->getId()]); ?>">
                     <span class="glyphicon glyphicon-pencil"></span> Edit
                 </a>
             </td>
+            <?php else:?>
+            <td>
+                <a class="btn btn-info" href="<?= $this->url('product',
+                    ['action' => 'buy', 'id' => $product->getId()]); ?>">
+                    <span class="glyphicon glyphicon-pencil"></span> get this product
+                </a>
+            </td>
+            <?php endif; ?>
         </tr>
     <?php endforeach; ?>
 </table>

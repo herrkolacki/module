@@ -11,6 +11,11 @@ use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Controller\AbstractActionController;
 use User\Controller\AuthController;
 use User\Service\AuthManager;
+use User\Service\UserManager;
+use User\Service\UserToken;
+use Product\Service\ProductManager;
+use User\Entity\User;
+use Zend\Http\Request;
 
 class Module
 {
@@ -29,7 +34,31 @@ class Module
     public function onBootstrap(MvcEvent $event)
     {
         // Get event manager.
+
         $eventManager = $event->getApplication()->getEventManager();
+
+        $userManager =  $event->getApplication()->getServiceManager()->get(UserManager::class);
+        $productManager=  $event->getApplication()->getServiceManager()->get(ProductManager::class);
+        $entityManager = $event->getApplication()->getServiceManager()->get('doctrine.entitymanager.orm_default');
+        $request = new Request();
+        $tokenManager = $event->getApplication()->getServiceManager()->get(UserToken::class);
+        $request->getHeaders()->addHeaders(['authorization' => 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE0OTk0Mjc4NTMsImRhdGEiOnsidXNlcklkIjoiNSIsInJvbGUiOiIxIiwicGFzcyI6Ik1vamUxMjM0In19.yZJaRn9n3s_iQGZNe7JWY6pTG8WQ8VHihSvWwuIt2EErjb97aMT6kGHz6RBSo6nxMA9RSvijf1mG629OX8qcPg']);
+
+        $cos =  $request->getHeader('authorization');
+        $cosValue = $cos->getFieldValue();
+		$user = $tokenManager->getHeaderAuth($cos);
+        $userManager = new UserManager($entityManager);
+        $userToken = $userManager->decodeToken($cosValue);
+
+        if(!$userToken){
+            $this->user = $entityManager->getRepository(User::class)
+                                              ->find(1);
+
+        }else{
+            $this->user = $entityManager->getRepository(User::class)
+                                              ->find($userToken->data->userId);
+        }
+
         $sharedEventManager = $eventManager->getSharedManager();
         // Register the event listener method. 
         $sharedEventManager->attach(AbstractActionController::class, 
@@ -52,7 +81,7 @@ class Module
 
         // Convert dash-style action name to camel-case.
         $actionName = str_replace('-', '', lcfirst(ucwords($actionName, '-')));
-        
+
         // Get the instance of AuthManager service.
         $authManager = $event->getApplication()->getServiceManager()->get(AuthManager::class);
 
@@ -73,7 +102,7 @@ class Module
             $redirectUrl = $uri->toString();
 
             // Redirect the user to the "Login" page.
-            return $controller->redirect()->toRoute('login', [], 
+            return $controller->redirect()->toRoute('login', [],
                     ['query'=>['redirectUrl'=>$redirectUrl]]);
         }
     }

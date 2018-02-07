@@ -1,0 +1,15 @@
+<?php
+
+$title = 'Dev/My';
+
+$this->headTitle($this->escapeHtml($title));
+
+//\Zend\Debug\Debug::dump( $ip , __FILE__.' ['.__LINE__ . ']' );
+
+echo $this->devMenuLocal();
+
+    echo ''
+        . '<h1>' . $title . '</h1>'
+        //. '<p>' . $this->url('dev/my', ['action' => 'ip']) . '</p>'
+        . '<p>' . '<a href=' . $this->url('devMy', ['action' => 'ip']) . '>Sprawdź swoje IP</a>' . '</p>' 
+    ;

@@ -57,7 +57,11 @@ class Product
      * @ORM\Column(name="access_code")
      */
     protected $accessCode;
-    
+
+    /**
+     * @ORM\Column(name="price")
+     */
+    protected $price;
 
     /**
      * @return int
@@ -218,6 +222,19 @@ class Product
     public function setAccessCode($accessCode)
     {
         $this->accessCode = $accessCode;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    public function setPrice($price)
+    {
+        $this->price = $price;
     }
 }
 

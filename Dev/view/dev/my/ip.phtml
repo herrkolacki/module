@@ -1,0 +1,27 @@
+<?php
+
+$title = 'Moje IP';
+
+$this->headTitle($this->escapeHtml($title));
+
+//\Zend\Debug\Debug::dump( $ip , __FILE__.' ['.__LINE__ . ']' );
+
+echo $this->devMenuLocal();
+
+
+
+    echo ''
+        . '<h1>' . $title . '</h1>'
+        . '<p>to: <strong>' . $request->getServer('REMOTE_ADDR') . '</strong></p>'
+        . '<p>HTTP_USER_AGENT: <strong>' . $request->getServer('HTTP_USER_AGENT') . '</strong></p>'
+        . '<p>HTTP_ACCEPT_LANGUAGE: <strong>' . $request->getServer('HTTP_ACCEPT_LANGUAGE') . '</strong></p>'
+        . '<p>REQUEST_TIME: <strong>' . date ( 'Y-m-d H:i:s', $request->getServer('REQUEST_TIME') ) . '</strong></p>'
+        . '<p>NOW: <strong>' . date ( 'Y-m-d H:i:s' ) . '</strong></p>'
+        //. '<pre>' . $response . '</pre>'
+    ;
+    
+//\Zend\Debug\Debug::dump( $response , __FILE__.' ['.__LINE__ . ']' );
+\Zend\Debug\Debug::dump( $response , 'Line: ['.__LINE__ . ']' );
+//\Zend\Debug\Debug::dump( $request , 'Line: ['.__LINE__ . ']' );
+
+

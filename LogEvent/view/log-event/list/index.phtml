@@ -1,0 +1,31 @@
+<?php
+$this->headTitle('Log Events');
+$this->mainMenu()->setActiveItemId('logEvent');
+?>
+
+<h1>Logi</h1>
+
+
+<table class="table table-striped">
+    <tr>
+        <th>ID</th>
+        <th>UserId</th>
+        <th>Date Created</th>
+        <th>Ip</th>
+        <th>Gdzie</th>
+        <th>Result</th>
+        <th>Actions</th>
+    </tr>
+    <?php foreach($logEvents as $logEvent): ?>
+        <tr>
+            <td><?= $this->escapeHtml($product->getId()); ?></td>
+            <td><?= $this->escapeHtml($product->getUserId()); ?></a>
+            </td>
+            <td><?= $this->escapeHtml($product->getCreated()); ?></td>
+            <td><?= $this->escapeHtml($product->getIp()); ?></td>
+            <td><?= $this->escapeHtml($product->getAction()); ?></td>
+            <td><?= $this->escapeHtml($product->getResult()); ?></td>
+        </tr>
+    <?php endforeach; ?>
+</table>
+

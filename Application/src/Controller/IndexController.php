@@ -22,7 +22,7 @@ class IndexController extends AbstractActionController
      */
     public function __construct($entityManager) 
     {
-       $this->entityManager = $entityManager;
+        $this->entityManager = $entityManager;
     }
     
     /**

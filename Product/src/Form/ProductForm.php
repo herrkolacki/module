@@ -105,6 +105,15 @@ class ProductForm extends Form
             ],
         ]);
 
+        // Add "full_name" field
+        $this->add([
+            'type'  => 'text',
+            'name' => 'price',
+            'options' => [
+                'label' => 'cena',
+            ],
+        ]);
+
         // Add the Submit button
         $this->add([
             'type'  => 'submit',
